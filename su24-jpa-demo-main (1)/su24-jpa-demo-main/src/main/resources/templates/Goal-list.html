@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal and Task Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            padding: 6px 12px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1>Goal and Task Details</h1>
+
+<h2>Goals</h2>
+<table>
+    <tr>
+        <th>Goal ID</th>
+        <th>User ID</th>
+        <th>Title</th>
+        <th>Details</th>
+        <th>Target Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="goal : ${goalList}">
+        <td th:text="${goal.goalId}"></td>
+        <td th:text="${goal.userId}"></td>
+        <td th:text="${goal.title}"></td>
+        <td th:text="${goal.details}"></td>
+        <td th:text="${#dates.format(goal.targetDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="${goal.status}"></td>
+        <td>
+            <a th:href="@{/taskmanager/goals/update/{goalId}(goalId=${goal.goalId})}" class="btn">Edit</a>
+            <a th:href="@{/taskmanager/goals/delete/{goalId}(goalId=${goal.goalId})}" class="btn">Delete</a>
+        </td>
+    </tr>
+</table>
+
+<h2>Tasks</h2>
+<table>
+    <tr>
+        <th>Task ID</th>
+        <th>Goal ID</th>
+        <th>Title</th>
+        <th>Details</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="task : ${taskList}">
+        <td th:text="${task.taskId}"></td>
+        <td th:text="${task.goalId}"></td>
+        <td th:text="${task.title}"></td>
+        <td th:text="${task.details}"></td>
+        <td th:text="${task.status}"></td>
+        <td>
+            <a th:href="@{/taskmanager/tasks/update/{taskId}(taskId=${task.taskId})}" class="btn">Edit</a>
+            <a th:href="@{/taskmanager/tasks/delete/{taskId}(taskId=${task.taskId})}" class="btn">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
